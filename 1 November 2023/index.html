@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>WebRTC Internet Call</title>
+ <style>
+    body { font-family: Arial, sans-serif; }
+    #callBtn { margin-top: 10px; }
+    #remoteVideo { height: 240px; }
+ </style>
+</head>
+<body>
+ <h1>WebRTC Internet Call</h1>
+ <video id="localVideo" autoplay muted></video>
+ <button id="callBtn">Call</button>
+ <video id="remoteVideo" autoplay></video>
+
+ <script>
+    let localStream;
+    let remoteStream;
+    let peerConnection;
+    let callBtn = document.getElementById('callBtn');
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(stream => {
+        localStream = stream;
+        document.getElementById('localVideo').srcObject = localStream;
+      })
+      .catch(error => console.error('Error accessing media devices.', error));
+
+    callBtn.addEventListener('click', () => {
+      callBtn.disabled = true;
+      createPeerConnection();
+      localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+      peerConnection.createOffer()
+        .then(offer => peerConnection.setLocalDescription(offer))
+        .catch(error => console.error('Error creating offer.', error));
+    });
+
+    function createPeerConnection() {
+      peerConnection = new RTCPeerConnection();
+      peerConnection.addEventListener('icecandidate', handleIceCandidate);
+      peerConnection.addEventListener('track', handleRemoteStream);
+    }
+
+    function handleIceCandidate(event) {
+      if (event.candidate) {
+        // Here you should send the candidate to the remote peer
+      } else {
+        // All ICE candidates have been sent
+      }
+    }
+
+    function

@@ -1,0 +1,37 @@
+
+
+  .aparent {
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Default styles for the child divs */
+  .child1 {
+    background-color: #690419;
+    color: #3498db;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+
+  .child2 {
+    background-color: #6c2179;
+    color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+
+  /* Apply hover styles to the parent when a child is hovered */
+  .child2:hover ~ .child1 {
+    background-color: #bced08;
+  }
+ 
+  
+  
+  
+  
+  
